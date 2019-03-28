@@ -5,12 +5,17 @@ public enum Tokens {
     id,
     tInt,
     tFloat,
-    consNumInt,
-    consNumFloat,
-    consBool,
-    consChar,
-    consString,
+    constNumInt,
+    constNumFloat,
+    constBool,
+    constChar,
+    constString,
     opAditiv,
+    opMult,
+    opUnaryNeg,
+    paramBeg,
+    paramEnd,
+    endLine,
     unknown
 
 }

@@ -8,7 +8,11 @@ public class Token {
     private int line;
     private int column;
 
-    public Token(String value, int line, int column, Tokens category) {
+    Tokens getCategory() {
+        return category;
+    }
+
+    Token(String value, int line, int column, Tokens category) {
         this.value = value;
         this.line = line;
         this.column = column;
@@ -17,7 +21,7 @@ public class Token {
 
     @Override
     public String toString() {
-        String fmt = "        [%04d, %04d] (%04d, %10s) {%s}";
+        String fmt = "        [%04d, %04d] (%04d, %12s) {%s}";
         return String.format(fmt, line + 1, column + 1, category.ordinal(), category.toString(), value);
     }
 

@@ -11,7 +11,7 @@ public class LexicalAnalyzer {
     private BufferedReader inputBuffer;
     private int currLineIdx, currColumnIdx;
     private String currLine;
-    private Token currToken;
+    private Token previousToken, currToken;
     private StringBuilder tokenValue = new StringBuilder();
 
     public LexicalAnalyzer(String inputPath) throws FileNotFoundException {
@@ -178,9 +178,13 @@ public class LexicalAnalyzer {
             }
 
             return true;
-        } else if (currChar == '*') {
+        } else if (currChar == '*' || currChar == '%' || currChar == '^') {
             tokenValue.append(currChar);
-            currChar = nextChar();
+            nextChar();
+            return true;
+        } else if (currChar == ';' || currChar == '(' || currChar == ')') {
+            tokenValue.append(currChar);
+            nextChar();
             return true;
         }
 
@@ -201,6 +205,7 @@ public class LexicalAnalyzer {
     private Token makeToken(String value, int line, int column) {
 
         Token token = new Token(value.trim(), line, column, findCategory(value));
+        previousToken = currToken;
         currToken = token;
         return token;
 
@@ -208,7 +213,9 @@ public class LexicalAnalyzer {
 
     private Tokens findCategory(String value) {
 
-        if (LexicalTable.map.containsKey(value.trim())) {
+        if (value.equals("-") && isUnaryNeg()) {
+            return Tokens.opUnaryNeg;
+        } else if (LexicalTable.map.containsKey(value.trim())) {
             return LexicalTable.map.get(value.trim());
         } else {
             return isConsOrId(value);
@@ -219,20 +226,36 @@ public class LexicalAnalyzer {
     private Tokens isConsOrId(String value) {
 
         if (value.matches("\\d+")) {
-            return Tokens.consNumInt;
+            return Tokens.constNumInt;
         } else if (value.matches("(\\d)+\\.(\\d)+")) {
-            return Tokens.consNumFloat;
+            return Tokens.constNumFloat;
         } else if (value.equals("true") || value.equals("false")) {
-            return Tokens.consBool;
+            return Tokens.constBool;
         } else if (value.startsWith("\'") && value.length() == 1 && value.endsWith("\'")) {
-            return Tokens.consChar;
+            return Tokens.constChar;
         } else if (value.startsWith("\"") && value.length() > 1 && value.endsWith("\"")) {
-            return Tokens.consString;
+            return Tokens.constString;
         } else if(value.matches("[a-z_A-Z](\\w)*")) {
             return Tokens.id;
         }
 
         return Tokens.unknown;
+
+    }
+
+    private boolean isUnaryNeg() {
+
+        if (previousToken != null) {
+            Tokens previousCtg = previousToken.getCategory();
+
+            if (previousCtg == Tokens.constNumInt || previousCtg == Tokens.constNumFloat) {
+                return false;
+            } else {
+                return (previousCtg != Tokens.id && previousCtg != Tokens.paramEnd);
+            }
+        }
+
+        return true;
 
     }
 
