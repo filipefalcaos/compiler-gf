@@ -55,14 +55,17 @@ public class LexicalAnalyzer {
             tokenColumn++;
         }
 
+        // Test if is digit or id
         if (isDigitOrId(currChar)) {
             return makeToken(tokenValue.toString(), tokenLine, tokenColumn);
         }
 
+        // Test if is a string constant
         if (isConstString(currChar)) {
             return makeToken(tokenValue.toString(), tokenLine, tokenColumn);
         }
 
+        // Check if is a symbol
         if (isSymbol(currChar)) {
             return makeToken(tokenValue.toString(), tokenLine, tokenColumn);
         }
@@ -99,8 +102,9 @@ public class LexicalAnalyzer {
                 if (currChar == '\"') { break; }
                 tokenValue.append(currChar);
                 currChar = nextChar();
-                if (currChar == ' ') { break; }
+                if (currChar == ' ' || currChar == '\n') { break; }
             }
+
         }
 
         return !(tokenValue.toString().equals(""));
@@ -158,31 +162,22 @@ public class LexicalAnalyzer {
             }
 
             return true;
-        } else if (currChar == '-') {
-            tokenValue.append(currChar);
-            currChar = nextChar();
-
-            if (currChar == '-') {
-                tokenValue.append(currChar);
-                currColumnIdx++;
-            }
-
-            return true;
         } else if (currChar == '+') {
             tokenValue.append(currChar);
             currChar = nextChar();
 
-            if (currChar == '=' || currChar == '+') {
+            if (currChar == '+') {
                 tokenValue.append(currChar);
                 currColumnIdx++;
             }
 
             return true;
-        } else if (currChar == '*' || currChar == '%' || currChar == '^') {
+        } else if (currChar == '-' || currChar == '*' || currChar == '/' || currChar == '%' || currChar == '^') {
             tokenValue.append(currChar);
             nextChar();
             return true;
-        } else if (currChar == ';' || currChar == '(' || currChar == ')') {
+        } else if (currChar == ';' || currChar == ',' || currChar == '(' || currChar == ')' || currChar == '['
+                || currChar == ']' || currChar == '{' || currChar == '}') {
             tokenValue.append(currChar);
             nextChar();
             return true;
@@ -204,8 +199,8 @@ public class LexicalAnalyzer {
 
     private Token makeToken(String value, int line, int column) {
 
-        Token token = new Token(value.trim(), line, column, findCategory(value));
         previousToken = currToken;
+        Token token = new Token(value.trim(), line, column, findCategory(value));
         currToken = token;
         return token;
 
@@ -247,12 +242,8 @@ public class LexicalAnalyzer {
 
         if (previousToken != null) {
             Tokens previousCtg = previousToken.getCategory();
-
-            if (previousCtg == Tokens.constNumInt || previousCtg == Tokens.constNumFloat) {
-                return false;
-            } else {
-                return (previousCtg != Tokens.id && previousCtg != Tokens.paramEnd);
-            }
+            return previousCtg != Tokens.constNumInt && previousCtg != Tokens.constNumFloat &&
+                    previousCtg != Tokens.id && previousCtg != Tokens.paramEnd;
         }
 
         return true;
