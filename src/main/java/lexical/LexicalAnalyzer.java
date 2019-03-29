@@ -15,11 +15,9 @@ public class LexicalAnalyzer {
     private StringBuilder tokenValue = new StringBuilder();
 
     public LexicalAnalyzer(String inputPath) throws FileNotFoundException {
-
         this.currLineIdx = 0;
         this.currColumnIdx = 0;
         this.inputBuffer = new BufferedReader(new FileReader(inputPath));
-
     }
 
     public boolean hasNext() throws IOException {
@@ -200,7 +198,7 @@ public class LexicalAnalyzer {
     private Token makeToken(String value, int line, int column) {
 
         previousToken = currToken;
-        Token token = new Token(value.trim(), line, column, findCategory(value));
+        Token token = new Token(value, line, column, findCategory(value));
         currToken = token;
         return token;
 
@@ -210,8 +208,8 @@ public class LexicalAnalyzer {
 
         if (value.equals("-") && isUnaryNeg()) {
             return Tokens.opUnaryNeg;
-        } else if (LexicalTable.map.containsKey(value.trim())) {
-            return LexicalTable.map.get(value.trim());
+        } else if (LexicalTable.map.containsKey(value)) {
+            return LexicalTable.map.get(value);
         } else {
             return isConsOrId(value);
         }
