@@ -15,4 +15,4 @@ A pasta ```examples``` possui alguns exemplos da linguagem GF:
 - ```fibonacci.gf```: cálculo da série de Fibonacci;
 - ```shell_sort.gf```: método de ordenação Shell Sort.
 
-A pasta ```exercícios``` contém alguns exercícios passados em aula.
+A pasta ```exercícios_filipe``` contém alguns exercícios passados em aula.
