@@ -226,6 +226,10 @@ public class LexicalAnalyzer {
             return Tokens.constBool;
         } else if (value.startsWith("\'") && value.length() == 3 && value.endsWith("\'")) {
             return Tokens.constChar;
+        } else if (value.startsWith("\'") && value.length() == 4 && value.endsWith("\'")) {
+            if (value.indexOf("\\") == 1 && (value.indexOf("n") == 2 || value.indexOf("t") == 2)) {
+                return Tokens.constChar;
+            }
         } else if (value.startsWith("\"") && value.length() > 1 && value.endsWith("\"")) {
             return Tokens.constString;
         } else if(value.matches("[a-z_A-Z](\\w)*")) {
