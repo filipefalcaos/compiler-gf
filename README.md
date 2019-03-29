@@ -1,9 +1,9 @@
 # compiler-gf
 Code for COMP263 - Compilers (UFAL)
 
-Para executar o compilador, basta executar a classe ```Main```, passando como parâmetro:
+Para testar o compilador, basta executar o arquivo ```jar``` na raiz do repositório:
 ```
---input file_path
+java -jar compiler-gf-1.0-SNAPSHOT-jar-with-dependencies.jar --input file_path
 ```
 onde ```file_path``` é o path para o arquivo de entrada.
 
