@@ -23,6 +23,7 @@ public enum Tokens {
     cmdElse,
     cmdWhile,
     cmdRepeat,
+    cmdIn,
     cmdReturn,
 
     // Delimiters

@@ -32,6 +32,7 @@ class LexicalTable {
         map.put("else", Tokens.cmdElse);
         map.put("while", Tokens.cmdWhile);
         map.put("repeat", Tokens.cmdRepeat);
+        map.put("in", Tokens.cmdIn);
         map.put("return", Tokens.cmdReturn);
 
         // Operators
