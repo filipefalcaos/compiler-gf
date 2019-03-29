@@ -22,7 +22,7 @@ public class Token {
     @Override
     public String toString() {
         String fmt = "        [%04d, %04d] (%04d, %20s) {%s}";
-        return String.format(fmt, line + 1, column + 1, category.ordinal(), category.toString(), value);
+        return String.format(fmt, line, column + 1, category.ordinal(), category.toString(), value);
     }
 
 }

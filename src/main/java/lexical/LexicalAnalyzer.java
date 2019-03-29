@@ -34,6 +34,8 @@ public class LexicalAnalyzer {
             }
 
             currLine = line;
+            String fmt = String.format("[%04d]  %s", currLineIdx, currLine.trim());
+            System.out.println(fmt);
         }
 
         return true;
