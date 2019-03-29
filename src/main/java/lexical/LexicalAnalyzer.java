@@ -226,7 +226,7 @@ public class LexicalAnalyzer {
             return Tokens.constNumFloat;
         } else if (value.equals("true") || value.equals("false")) {
             return Tokens.constBool;
-        } else if (value.startsWith("\'") && value.length() == 1 && value.endsWith("\'")) {
+        } else if (value.startsWith("\'") && value.length() == 3 && value.endsWith("\'")) {
             return Tokens.constChar;
         } else if (value.startsWith("\"") && value.length() > 1 && value.endsWith("\"")) {
             return Tokens.constString;
