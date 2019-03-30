@@ -25,7 +25,7 @@ public class LexicalAnalyzer {
         String line = currLine != null ? currLine.substring(currColumnIdx) : null;
 
         while (line == null || !line.matches("[\\s]*[^\\s].*")) {
-            line = inputBuffer.readLine();
+            String line_aux = line = inputBuffer.readLine();
             currLineIdx++;
             currColumnIdx = 0;
 
@@ -33,8 +33,10 @@ public class LexicalAnalyzer {
                 return false;
             }
 
+            line = line.replaceAll("#.*", "");
+
             currLine = line;
-            String fmt = String.format("[%04d]  %s", currLineIdx, currLine.trim());
+            String fmt = String.format("[%04d]  %s", currLineIdx, line_aux.trim());
             System.out.println(fmt);
         }
 
