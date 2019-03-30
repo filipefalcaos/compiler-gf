@@ -63,7 +63,7 @@ begin
     printArray(unsorted);
 
     sorted = shellSort(unsorted, 10);
-    printArray(sorted):
+    printArray(sorted);
 
     return 0;
 end

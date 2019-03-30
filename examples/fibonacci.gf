@@ -31,7 +31,7 @@ begin
 
             if (fib3 < limit)
             begin
-                print(fib3 ++ ',');
+                print(fib3 ++ ",");
             end
             elif (fib3 = limit)
             begin
