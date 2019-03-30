@@ -22,25 +22,31 @@ public class LexicalAnalyzer {
 
     public boolean hasNext() throws IOException {
 
-        String line = currLine != null ? currLine.substring(currColumnIdx) : null;
+        // First line
+        if (currLineIdx == 0 && currColumnIdx == 0) {
+            nextLine();
+            printLine();
 
-        while (line == null || !line.matches("[\\s]*[^\\s].*")) {
-            String line_aux = line = inputBuffer.readLine();
-            currLineIdx++;
-            currColumnIdx = 0;
-
-            if (line == null) {
+            if (currLine == null) {
                 return false;
             }
-
-            line = line.replaceAll("#.*", "");
-
-            currLine = line;
-            String fmt = String.format("[%04d]  %s", currLineIdx, line_aux.trim());
-            System.out.println(fmt);
         }
 
-        return true;
+        // Next lines
+        if (currLine.substring(currColumnIdx).matches("\\s*")) {
+            while (nextLine()) {
+                currLineIdx++;
+                currColumnIdx = 0;
+                printLine();
+
+                if (!currLine.matches("\\s*")) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return true;
+        }
 
     }
 
@@ -197,6 +203,27 @@ public class LexicalAnalyzer {
         }
 
         return '\n';
+    }
+
+    private boolean nextLine() throws IOException {
+
+        String line;
+        line = inputBuffer.readLine();
+
+        if (line != null) {
+            // Remove comments
+            line = line.replaceAll("#.*", "");
+            currLine = line;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    private void printLine() {
+        String fmt = String.format("[%04d]  %s", currLineIdx + 1, currLine.trim());
+        System.out.println(fmt);
     }
 
     private Token makeToken(String value, int line, int column) {
