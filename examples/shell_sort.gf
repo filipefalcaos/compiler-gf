@@ -1,7 +1,6 @@
 function shellSort(int array[], int size) int[]
 begin
     var int i;
-    var int j;
     var int gap;
     gap = size / 2;
 
@@ -9,14 +8,15 @@ begin
     begin
         repeat i in (gap, size, 1)
         begin
-            int temp = array[i]
-            int j;
+            var int temp;
+            var int j;
             j = 1;
+            temp = array[i];
 
             while((j >= gap) and (array[j - gap] > temp))
             begin
                 array[j] = array[j - gap];
-                j = j - temp
+                j = j - temp;
             end
 
             array[j] = temp;
@@ -28,7 +28,7 @@ begin
      return 0;
 end
 
-function printArray(int[] array, int size) int
+function printArray(int array[], int size) int
 begin
     var int i;
 
@@ -36,7 +36,7 @@ begin
     begin
         print(array[i] ++ " ");
     end
-    print("\n")
+    print("\n");
 
     return 0;
 end
@@ -57,13 +57,8 @@ end
 main() int
 begin
     var int unsorted[10];
-    var int sorted[10];
-
-    unsorted = readArray(10);
-    printArray(unsorted);
-
-    sorted = shellSort(unsorted, 10);
-    printArray(sorted);
+    printArray(readArray(10));
+    printArray(shellSort(unsorted, 10));
 
     return 0;
 end
