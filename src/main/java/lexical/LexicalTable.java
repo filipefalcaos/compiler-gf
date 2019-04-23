@@ -11,8 +11,8 @@ class LexicalTable {
 
     static {
 
-        symbols = new ArrayList<Character>();
-        map = new HashMap<String, Tokens>();
+        symbols = new ArrayList<>();
+        map = new HashMap<>();
 
         // Keywords
         map.put("main", Tokens.main);
@@ -63,8 +63,8 @@ class LexicalTable {
         // Delimiters
         map.put("(", Tokens.paramBeg);
         map.put(")", Tokens.paramEnd);
-        map.put("begin", Tokens.scopeBeg);
-        map.put("end", Tokens.scopeEnd);
+        map.put("begin", Tokens.blockBeg);
+        map.put("end", Tokens.blockEnd);
         map.put("[", Tokens.arrayBeg);
         map.put("]", Tokens.arrayEnd);
         map.put("{", Tokens.arrayValBeg);

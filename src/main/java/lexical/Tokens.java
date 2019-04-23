@@ -29,8 +29,8 @@ public enum Tokens {
     // Delimiters
     paramBeg,
     paramEnd,
-    scopeBeg,
-    scopeEnd,
+    blockBeg,
+    blockEnd,
     arrayBeg,
     arrayEnd,
     arrayValBeg,
