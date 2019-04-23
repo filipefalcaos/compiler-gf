@@ -66,7 +66,7 @@ public class SyntaticAnalyzer {
 
             while (!analysisStack.isEmpty() && !currTokenCategory.equals(analysisStack.peek())) {
                 currAction = getAction(currTokenCategory, analysisStack.peek());
-                System.out.format("%-200s%-20s%-15s\n", analysisStack, currTokenValue, currAction);
+                System.out.format("%-300s%-20s%-15s\n", analysisStack, currTokenValue, currAction);
 
                 if (currAction.equals("")) {
                     return false;
@@ -89,10 +89,10 @@ public class SyntaticAnalyzer {
 
             // DAT
             if (token != null) {
-                System.out.format("%-200s%-20s%-15s\n", analysisStack, currTokenValue, "DAT");
+                System.out.format("%-300s%-20s%-15s\n", analysisStack, currTokenValue, "DAT");
                 analysisStack.pop();
             } else {
-                System.out.format("%-200s%-20s%-15s\n", analysisStack, currTokenValue, "ACC");
+                System.out.format("%-300s%-20s%-15s\n", analysisStack, currTokenValue, "ACC");
             }
 
             // Read the next token
