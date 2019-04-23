@@ -210,8 +210,8 @@ public class LexicalAnalyzer {
         String line;
         line = inputBuffer.readLine();
 
+        // Remove comments
         if (line != null) {
-            // Remove comments
             line = line.replaceAll("#.*", "");
             currLine = line;
             return true;

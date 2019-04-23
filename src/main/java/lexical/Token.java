@@ -8,10 +8,6 @@ public class Token {
     private int line;
     private int column;
 
-    Tokens getCategory() {
-        return category;
-    }
-
     Token(String value, int line, int column, Tokens category) {
         this.value = value;
         this.line = line;
@@ -23,6 +19,14 @@ public class Token {
     public String toString() {
         String fmt = "        [%04d, %04d] (%04d, %20s) {%s}";
         return String.format(fmt, line + 1, column + 1, category.ordinal(), category.toString(), value);
+    }
+
+    public Tokens getCategory() {
+        return category;
+    }
+
+    public String getValue() {
+        return value;
     }
 
 }
