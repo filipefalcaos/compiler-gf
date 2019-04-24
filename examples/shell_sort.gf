@@ -13,7 +13,7 @@ begin
             j = 1;
             temp = array[i];
 
-            while((j >= gap) and (array[j - gap] > temp))
+            while(j >= gap and array[j - gap] > temp)
             begin
                 array[j] = array[j - gap];
                 j = j - temp;

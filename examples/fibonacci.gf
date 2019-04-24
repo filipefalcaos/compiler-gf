@@ -6,7 +6,8 @@ begin
     var int fib3;
 
     count = 0;
-    fib1 = fib2 = 1;
+    fib1 = 1;
+    fib2 = 1;
 
     if (limit == 0)
     begin
@@ -33,7 +34,7 @@ begin
             begin
                 print(fib3 ++ ",");
             end
-            elif (fib3 = limit)
+            elif (fib3 == limit)
             begin
                 print(fib3);
             end
