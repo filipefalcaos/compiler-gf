@@ -1,0 +1,133 @@
+PROGRAM = FUNCTIONS MAINFUNC
+
+FUNCTIONS = funDecl id PARAMS RETURNTYPE BLOCK FUNCTIONS
+FUNCTIONS = epsilon
+
+MAINFUNC = main paramBeg paramEnd TYPE BLOCK
+
+PARAMS = paramBeg LISTPARAMS paramEnd
+
+LISTPARAMS = TYPE NAME
+LISTPARAMS = LISTPARAMS commaSep TYPE NAME
+LISTPARAMS = epsilon
+
+TYPE = typeInt
+TYPE = typeFloat
+TYPE = typeBool
+TYPE = typeChar
+TYPE = typeString
+TYPE = typeEmpty
+TYPE = typeNull
+
+RETURNTYPE = TYPE
+RETURNTYPE = TYPE arrayBeg arrayEnd
+
+NAME = id
+NAME = id arrayBeg EXPR arrayEnd
+NAME = id arrayBeg arrayEnd
+
+BLOCK = blockBeg CMDS blockEnd
+
+CMDS = CMDS CMD
+CMDS = CMD
+
+CMD = DECL endLine
+CMD = id ASSG endLine
+CMD = id arrayBeg EXPR arrayEnd ASSG endLine
+CMD = id FUNCCALL endLine
+CMD = PRINT endLine
+CMD = READ endLine
+CMD = IFELSE
+CMD = WHILE
+CMD = REPEAT
+CMD = RETURN endLine
+
+DECL = varDecl TYPE NAME
+
+ASSG = opAssign VALUE
+
+VALUE = ARRAY
+VALUE = EXPR
+
+ARRAY = arrayValBeg ELEMENTS arrayValEnd
+
+ELEMENTS = EXPR
+ELEMENTS = ELEMENTS commaSep EXPR
+
+CONSTANT = constNumInt
+CONSTANT = constNumFloat
+CONSTANT = constBool
+CONSTANT = constChar
+CONSTANT = constString
+
+FUNCCALL = paramBeg LISTPARAMSCALL paramEnd
+
+LISTPARAMSCALL = PARAMITEM
+LISTPARAMSCALL = LISTPARAMSCALL commaSep PARAMITEM
+
+PARAMITEM = CONSTANT
+PARAMITEM = NAME
+PARAMITEM = NAME FUNCCALL
+PARAMITEM = epsilon
+
+PRINT = cmdPrint paramBeg MESSAGE paramEnd
+
+READ = cmdRead paramBeg NAME paramEnd
+
+MESSAGE = constString
+MESSAGE = NAME
+MESSAGE = MESSAGE opConcat NAME
+MESSAGE = MESSAGE opConcat constString
+
+IFELSE = IF ELIF ELSE
+
+IF = cmdIf paramBeg EXPR paramEnd BLOCK
+
+ELIF = cmdElif paramBeg EXPR paramEnd BLOCK ELIF
+ELIF = epsilon
+
+ELSE = cmdElse BLOCK
+ELSE = epsilon
+
+WHILE = cmdWhile paramBeg EXPR paramEnd BLOCK
+
+REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR commaSep EXPR paramEnd BLOCK
+REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR paramEnd BLOCK
+
+RETURN = cmdReturn CONSTANT
+RETURN = cmdReturn NAME
+
+EXPR = EXPROR
+
+EXPROR = EXPROR opOr EXPRAND
+EXPROR = EXPRAND
+
+EXPRAND = EXPRAND opAnd EXPREQUALS
+EXPRAND = EXPREQUALS
+
+EXPREQUALS = EXPRREL opEquals EXPRREL
+EXPREQUALS = EXPRREL
+
+EXPRREL = EXPRADD opRel EXPRADD
+EXPRREL = EXPRADD
+
+EXPRADD = EXPRADD opAditiv EXPRAMULT
+EXPRADD = EXPRAMULT
+
+EXPRAMULT = EXPRAMULT opMult EXPRUN
+EXPRAMULT = EXPRUN
+
+EXPRUN = opUnaryNeg EXPRUN
+EXPRUN = EXPRPARAM
+
+EXPRPARAM = paramBeg EXPR paramEnd
+EXPRPARAM = EXPRVALUES
+
+EXPRVALUES = id
+EXPRVALUES = constNumInt
+EXPRVALUES = constNumFloat
+EXPRVALUES = constBool
+EXPRVALUES = constChar
+EXPRVALUES = constString
+EXPRVALUES = id arrayBeg EXPR arrayEnd
+EXPRVALUES = id FUNCCALL
