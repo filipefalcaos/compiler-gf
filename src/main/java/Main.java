@@ -16,6 +16,7 @@
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import java.io.File;
 import java.io.IOException;
 import lexical.LexicalAnalyzer;
 import syntatic.SyntaticAnalyzer;
@@ -37,8 +38,15 @@ public class Main {
 
     private void run() {
 
-        // Start the compilation process
         try {
+            File tokensFile = new File("output_tokens.txt");  // Tokens output file
+            boolean exists = tokensFile.exists();
+
+            if (exists) {
+                tokensFile.delete();
+            }
+
+            // Start the compilation process
             LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(inputPath);
             SyntaticAnalyzer syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 

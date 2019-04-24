@@ -1,5 +1,9 @@
 package lexical;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class Token {
 
@@ -17,16 +21,24 @@ public class Token {
 
     @Override
     public String toString() {
+
+        // Write tokens to file
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("output_tokens.txt", true));
+            writer.append(category.toString()).append(" ");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Print tokens
         String fmt = "        [%04d, %04d] (%04d, %20s) {%s}";
         return String.format(fmt, line + 1, column + 1, category.ordinal(), category.toString(), value);
+
     }
 
     public Tokens getCategory() {
         return category;
-    }
-
-    public String getValue() {
-        return value;
     }
 
 }
