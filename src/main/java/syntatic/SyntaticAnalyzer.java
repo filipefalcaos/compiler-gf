@@ -11,6 +11,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -51,22 +52,20 @@ public class SyntaticAnalyzer {
 
         // Control variables
         String currAction;
-        String currTokenValue;
         String currTokenCategory;
+        String currLeftSide;
 
         assert token != null;
         while (!analysisStack.isEmpty()) {
 
             if (token == null) {
-                currTokenValue = currTokenCategory = "EOF";
+                currTokenCategory = "EOF";
             } else {
-                currTokenValue = token.getValue();
                 currTokenCategory = token.getCategory().toString();
             }
 
             while (!analysisStack.isEmpty() && !currTokenCategory.equals(analysisStack.peek())) {
                 currAction = getAction(currTokenCategory, analysisStack.peek());
-                System.out.format("%-300s%-20s%-15s\n", analysisStack, currTokenValue, currAction);
 
                 if (currAction.equals("")) {
                     return false;
@@ -75,24 +74,27 @@ public class SyntaticAnalyzer {
                 // Get the current production
                 if (!currAction.equals("epsilon")) {
                     String[] rightSide = getProductionFromAction(currAction);
+                    String rightSideStr = Arrays.toString(rightSide).replace("[", "").
+                            replace("]", "").replace(",", "");
 
                     // Pop the left side and push the right side of the current
                     // production rule
-                    analysisStack.pop();
+                    currLeftSide = analysisStack.pop();
                     for (int i = rightSide.length - 1; i >= 0; i--) {
                         analysisStack.push(rightSide[i]);
                     }
+
+                    System.out.println("        " + currLeftSide + " -> " + rightSideStr);
                 } else {
-                    analysisStack.pop();
+                    currLeftSide = analysisStack.pop();
+                    System.out.println("        " + currLeftSide + " -> epsilon");
                 }
             }
 
             // DAT
             if (token != null) {
-                System.out.format("%-300s%-20s%-15s\n", analysisStack, currTokenValue, "DAT");
                 analysisStack.pop();
-            } else {
-                System.out.format("%-300s%-20s%-15s\n", analysisStack, currTokenValue, "ACC");
+                System.out.println(token);
             }
 
             // Read the next token

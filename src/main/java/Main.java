@@ -43,9 +43,9 @@ public class Main {
             SyntaticAnalyzer syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 
             if (syntaticAnalyzer.analyze()) {
-                System.out.println("---------- ACEITO ----------");
+                System.out.println("\n---------- ACEITO ----------");
             } else {
-                System.out.println("---------- ERRO ----------");
+                System.out.println("\n---------- ERRO ----------");
             }
         } catch (IOException e) {
             e.printStackTrace();
