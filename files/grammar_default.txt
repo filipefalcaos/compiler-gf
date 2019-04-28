@@ -71,7 +71,6 @@ PARAMITEM = NAME FUNCCALL
 PARAMITEM = epsilon
 
 PRINT = cmdPrint paramBeg MESSAGE paramEnd
-
 READ = cmdRead paramBeg NAME paramEnd
 
 MESSAGE = constString
