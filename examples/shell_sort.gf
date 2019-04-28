@@ -1,8 +1,7 @@
 function shellSort(int array[], int size) int[]
 begin
     var int i;
-    var int gap;
-    gap = size / 2;
+    var int gap = size / 2;
 
     while(gap > 0)
     begin
@@ -57,8 +56,13 @@ end
 main() int
 begin
     var int unsorted[10];
-    printArray(readArray(10));
-    printArray(shellSort(unsorted, 10));
+    var int sorted[10];
+
+    unsorted = readArray(10);
+    sorted = shellSort(unsorted, 10);
+
+    printArray(unsorted);
+    printArray(sorted);
 
     return 0;
 end

@@ -47,6 +47,7 @@ CMD = REPEAT
 CMD = RETURN endLine
 
 DECL = varDecl TYPE NAME
+DECL = varDecl TYPE NAME ASSG
 
 ASSG = opAssign VALUE
 

@@ -53,7 +53,9 @@ CMDfat = ASSG endLine
 CMDfat = FUNCCALL endLine
 CMDfat = epsilon
 
-DECL = varDecl TYPE NAME
+DECL = varDecl TYPE NAME DECLfat
+DECLfat = ASSG
+DECLfat = epsilon
 
 ASSG = opAssign VALUE
 
