@@ -1,0 +1,150 @@
+PROGRAM = FUNCTIONS MAINFUNC
+
+FUNCTIONS = funDecl id PARAMS RETURNTYPE BLOCK FUNCTIONS
+FUNCTIONS = epsilon
+
+MAINFUNC = main paramBeg paramEnd TYPE BLOCK
+
+PARAMS = paramBeg PARAMSfat
+PARAMSfat = paramEnd
+PARAMSfat = LISTPARAMS paramEnd
+
+LISTPARAMS = TYPE NAME LISTPARAMSr
+LISTPARAMSr = commaSep LISTPARAMS
+LISTPARAMSr = epsilon
+
+TYPE = typeInt
+TYPE = typeFloat
+TYPE = typeBool
+TYPE = typeChar
+TYPE = typeString
+TYPE = typeEmpty
+TYPE = typeNull
+
+RETURNTYPE = TYPE RETURNTYPEfat
+RETURNTYPEfat = arrayBeg arrayEnd
+RETURNTYPEfat = epsilon
+
+NAME = id NAMEfat
+NAMEfat = arrayBeg NAMEfat2
+NAMEfat = epsilon
+NAMEfat2 = EXPR arrayEnd
+NAMEfat2 = arrayEnd
+
+BLOCK = blockBeg CMDS blockEnd
+
+CMDS = CMD CMDS
+CMDS = epsilon
+
+CMD = DECL endLine
+CMD = id CMDfat
+CMD = PRINT endLine
+CMD = READ endLine
+CMD = IFELSE
+CMD = WHILE
+CMD = REPEAT
+CMD = RETURN endLine
+CMDfat = arrayBeg EXPR arrayEnd ASSG endLine
+CMDfat = ASSG endLine
+CMDfat = FUNCCALL endLine
+CMDfat = epsilon
+
+DECL = varDecl TYPE NAME
+
+ASSG = opAssign VALUE
+
+VALUE = ARRAY
+VALUE = EXPR
+
+ARRAY = arrayBeg ELEMENTS arrayEnd
+
+ELEMENTS = EXPR ELEMENTSr
+ELEMENTSr = commaSep ELEMENTS
+ELEMENTSr = epsilon
+
+CONSTANT = constNumInt
+CONSTANT = constNumFloat
+CONSTANT = constBool
+CONSTANT = constChar
+CONSTANT = constString
+
+FUNCCALL = paramBeg LISTPARAMSCALL paramEnd
+
+LISTPARAMSCALL = PARAMITEM LISTPARAMSCALLr
+LISTPARAMSCALLr = commaSep PARAMITEM LISTPARAMSCALLr
+LISTPARAMSCALLr = epsilon
+
+PARAMITEM = CONSTANT
+PARAMITEM = NAME PARAMITEMfat
+PARAMITEM = epsilon
+PARAMITEMfat = FUNCCALL
+PARAMITEMfat = epsilon
+
+PRINT = cmdPrint paramBeg MESSAGE paramEnd
+READ = cmdRead paramBeg NAME paramEnd
+
+MESSAGE = constString MESSAGEr
+MESSAGE = NAME MESSAGEr
+MESSAGEr = opConcat MESSAGE
+MESSAGEr = epsilon
+
+IFELSE = IF ELIF ELSE
+
+IF = cmdIf paramBeg EXPROR paramEnd BLOCK
+
+ELIF = cmdElif paramBeg EXPROR paramEnd BLOCK ELIF
+ELIF = epsilon
+
+ELSE = cmdElse BLOCK
+ELSE = epsilon
+
+WHILE = cmdWhile paramBeg EXPROR paramEnd BLOCK
+
+REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR REPEATfat paramEnd BLOCK
+REPEATfat = commaSep EXPROR
+REPEATfat = epsilon
+
+RETURN = cmdReturn RETURNfat
+RETURNfat = CONSTANT
+RETURNfat = NAME
+
+EXPR = EXPROR
+EXPROR = EXPRAND EXPRORr
+EXPRORr = opOr EXPRAND EXPRORr
+EXPRORr = epsilon
+
+EXPRAND = EXPREQUALS EXPRANDr
+EXPRANDr = opAnd EXPREQUALS EXPRANDr
+EXPRANDr = epsilon
+
+EXPREQUALS = EXPRREL EXPREQUALSr
+EXPREQUALSr = opEquals EXPRREL EXPREQUALSr
+EXPREQUALSr = epsilon
+
+EXPRREL = EXPRADD EXPRRELr
+EXPRRELr = opRel EXPRADD EXPRRELr
+EXPRRELr = epsilon
+
+EXPRADD = EXPRAMULT EXPRADDr
+EXPRADDr = opAditiv EXPRAMULT EXPRADDr
+EXPRADDr = epsilon
+
+EXPRAMULT = EXPRUN EXPRAMULTr
+EXPRAMULTr = opMult EXPRUN EXPRAMULTr
+EXPRAMULTr = epsilon
+
+EXPRUN = opUnaryNeg EXPRUN
+EXPRUN = EXPRPARAM
+
+EXPRPARAM = paramBeg EXPR paramEnd
+EXPRPARAM = EXPRVALUES
+
+EXPRVALUES = constNumInt
+EXPRVALUES = constNumFloat
+EXPRVALUES = constBool
+EXPRVALUES = constChar
+EXPRVALUES = constString
+EXPRVALUES = id EXPRVALUESfat
+EXPRVALUESfat = arrayBeg EXPR arrayEnd
+EXPRVALUESfat = FUNCCALL
+EXPRVALUESfat = epsilon
