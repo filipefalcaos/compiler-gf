@@ -51,9 +51,9 @@ public class Main {
             SyntaticAnalyzer syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 
             if (syntaticAnalyzer.analyze()) {
-                System.out.println("\n---------- ACEITO ----------");
+                System.out.println("\n---------- ACCEPTED ----------");
             } else {
-                System.out.println("\n---------- ERRO ----------");
+                System.out.println("\n---------- ERROR ----------");
             }
         } catch (IOException e) {
             e.printStackTrace();

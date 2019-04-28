@@ -32,7 +32,7 @@ public class Token {
         }
 
         // Print tokens
-        String fmt = "        [%04d, %04d] (%04d, %20s) {%s}";
+        String fmt = "              [%04d, %04d] (%04d, %20s) {%s}";
         return String.format(fmt, line + 1, column + 1, category.ordinal(), category.toString(), value);
 
     }

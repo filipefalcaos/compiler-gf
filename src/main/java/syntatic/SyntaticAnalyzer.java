@@ -32,12 +32,12 @@ public class SyntaticAnalyzer {
     public boolean analyze() throws IOException {
 
         // Create the grammar representation
-        String grammarPath = "files/grammar.txt";
+        String grammarPath = "files/grammar_ll1.txt";
         Grammar grammar = new Grammar(grammarPath);
         productions = grammar.getProductions();
 
         // Load the analysis table
-        String tablePath = "files/ll(1)_table.csv";
+        String tablePath = "files/ll1_table.csv";
         CSVParser analysisTable = loadAnalysisTable(tablePath);
         analysisTableList = analysisTable.getRecords();
 
@@ -84,10 +84,10 @@ public class SyntaticAnalyzer {
                         analysisStack.push(rightSide[i]);
                     }
 
-                    System.out.println("        " + currLeftSide + " -> " + rightSideStr);
+                    System.out.println("          " + currLeftSide + " = " + rightSideStr);
                 } else {
                     currLeftSide = analysisStack.pop();
-                    System.out.println("        " + currLeftSide + " -> epsilon");
+                    System.out.println("          " + currLeftSide + " = epsilon");
                 }
             }
 

@@ -222,7 +222,7 @@ public class LexicalAnalyzer {
     }
 
     private void printLine() {
-        String fmt = String.format("[%04d]  %s", currLineIdx + 1, currLine.trim());
+        String fmt = String.format("%4d  %s", currLineIdx + 1, currLine.trim());
         System.out.println(fmt);
     }
 
