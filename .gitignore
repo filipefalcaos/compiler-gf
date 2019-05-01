@@ -24,3 +24,6 @@ hs_err_pid*
 
 # Output tokens
 output_tokens.txt
+
+# JetBrains
+.idea/
