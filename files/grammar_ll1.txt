@@ -86,13 +86,8 @@ PARAMITEM = epsilon
 PARAMITEMfat = FUNCCALL
 PARAMITEMfat = epsilon
 
-PRINT = cmdPrint paramBeg MESSAGE paramEnd
+PRINT = cmdPrint paramBeg EXPR paramEnd
 READ = cmdRead paramBeg NAME paramEnd
-
-MESSAGE = constString MESSAGEr
-MESSAGE = NAME MESSAGEr
-MESSAGEr = opConcat MESSAGE
-MESSAGEr = epsilon
 
 IFELSE = IF ELIF ELSE
 
@@ -110,9 +105,7 @@ REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR REPEATfat paramEnd BLOCK
 REPEATfat = commaSep EXPROR
 REPEATfat = epsilon
 
-RETURN = cmdReturn RETURNfat
-RETURNfat = CONSTANT
-RETURNfat = NAME
+RETURN = cmdReturn EXPR
 
 EXPR = EXPROR
 EXPROR = EXPRAND EXPRORr
@@ -149,8 +142,18 @@ EXPRVALUES = constNumInt
 EXPRVALUES = constNumFloat
 EXPRVALUES = constBool
 EXPRVALUES = constChar
-EXPRVALUES = constString
-EXPRVALUES = id EXPRVALUESfat
-EXPRVALUESfat = arrayBeg EXPR arrayEnd
-EXPRVALUESfat = FUNCCALL
+EXPRVALUES = constString EXPRVALUESfat
+EXPRVALUES = id EXPRVALUESfat2
+EXPRVALUESfat = CONCAT
 EXPRVALUESfat = epsilon
+EXPRVALUESfat2 = arrayBeg EXPR arrayEnd ARRCONCAT
+EXPRVALUESfat2 = FUNCCALL
+EXPRVALUESfat2 = CONCAT
+EXPRVALUESfat2 = epsilon
+
+ARRCONCAT = CONCAT
+ARRCONCAT = epsilon
+
+CONCAT = opConcat CONCATfat
+CONCATfat = constString
+CONCATfat = id
