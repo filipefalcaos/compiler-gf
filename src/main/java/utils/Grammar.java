@@ -1,15 +1,15 @@
-package syntatic;
+package utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-class Grammar {
+public class Grammar {
 
     private ArrayList<Production> productions = new ArrayList<>();
 
-    Grammar(String grammarPath) throws IOException {
+    public Grammar(String grammarPath) throws IOException {
 
         BufferedReader buffer = new BufferedReader(new FileReader(grammarPath));
         String line = buffer.readLine();
@@ -24,16 +24,8 @@ class Grammar {
 
     }
 
-    ArrayList<Production> getProductions() {
+    public ArrayList<Production> getProductions() {
         return productions;
-    }
-
-    private ArrayList<String> calcFirst() {
-        return null;
-    }
-
-    private ArrayList<String> calcFollow() {
-        return null;
     }
 
 }

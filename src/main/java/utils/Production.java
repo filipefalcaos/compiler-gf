@@ -1,4 +1,4 @@
-package syntatic;
+package utils;
 
 public class Production {
 
@@ -25,7 +25,7 @@ public class Production {
 
     }
 
-    String[] getRight() {
+    public String[] getRight() {
         return right;
     }
 
