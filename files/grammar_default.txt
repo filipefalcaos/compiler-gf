@@ -1,129 +1,125 @@
 PROGRAM = FUNCTIONS MAINFUNC
-        | DECL endLine GLDECL FUNCTIONS MAINFUNC
-
+PROGRAM = DECL endLine GLDECL FUNCTIONS MAINFUNC
 MAINFUNC = main paramBeg paramEnd TYPE BLOCK
 
 GLDECL = DECL endLine GLDECL
-       | epsilon
+GLDECL = epsilon
 
 FUNCTIONS = funDecl id PARAMS RETURNTYPE BLOCK FUNCTIONS
-          | epsilon
+FUNCTIONS = epsilon
 
 PARAMS = paramBeg LISTPARAMS paramEnd
 LISTPARAMS = TYPE NAME
-           | LISTPARAMS commaSep TYPE NAME
-           | epsilon
+LISTPARAMS = LISTPARAMS commaSep TYPE NAME
+LISTPARAMS = epsilon
 
 TYPE = typeInt
-     | typeFloat
-     | typeBool
-     | typeChar
-     | typeString
-     | typeEmpty
-     | typeNull
+TYPE = typeFloat
+TYPE = typeBool
+TYPE = typeChar
+TYPE = typeString
+TYPE = typeEmpty
+TYPE = typeNull
 
 RETURNTYPE = TYPE
-           | TYPE arrayBeg arrayEnd
+RETURNTYPE = TYPE arrayBeg arrayEnd
 
 NAME = id
-     | id arrayBeg EXPR arrayEnd
-     | id arrayBeg arrayEnd
+NAME = id arrayBeg EXPR arrayEnd
+NAME = id arrayBeg arrayEnd
 
 BLOCK = blockBeg CMDS blockEnd
 
 CMDS = CMDS CMD
-     | CMD
+CMDS = CMD
 
 CMD = DECL endLine
-    | id ASSG endLine
-    | id arrayBeg EXPR arrayEnd ASSG endLine
-    | id FUNCCALL endLine
-    | PRINT endLine
-    | READ endLine
-    | IFELSE
-    | WHILE
-    | REPEAT
-    | RETURN endLine
+CMD = id ASSG endLine
+CMD = id arrayBeg EXPR arrayEnd ASSG endLine
+CMD = id FUNCCALL endLine
+CMD = PRINT endLine
+CMD = READ endLine
+CMD = IFELSE
+CMD = WHILE
+CMD = REPEAT
+CMD = RETURN endLine
 
 DECL = varDecl TYPE NAME
-     | varDecl TYPE NAME ASSG
+DECL = varDecl TYPE NAME ASSG
 
 ASSG = opAssign VALUE
-     | opAssign TYPE castSep VALUE
+ASSG = opAssign TYPE castSep VALUE
 
 VALUE = ARRAY
-      | EXPR
+VALUE = EXPR
 
 ARRAY = arrayValBeg ELEMENTS arrayValEnd
 ELEMENTS = EXPR
-         | ELEMENTS commaSep EXPR
+ELEMENTS = ELEMENTS commaSep EXPR
 
 FUNCCALL = paramBeg LISTPARAMSCALL paramEnd
 LISTPARAMSCALL = PARAMITEM
-               | LISTPARAMSCALL commaSep PARAMITEM
-
+LISTPARAMSCALL = LISTPARAMSCALL commaSep PARAMITEM
 PARAMITEM = EXPR
-          | epsilon
+PARAMITEM = epsilon
 
 PRINT = cmdPrint paramBeg EXPR paramEnd
 READ = cmdRead paramBeg NAME paramEnd
 
 IFELSE = IF ELIF ELSE
 IF = cmdIf paramBeg EXPR paramEnd BLOCK
-
 ELIF = cmdElif paramBeg EXPR paramEnd BLOCK ELIF
-     | epsilon
-
+ELIF = epsilon
 ELSE = cmdElse BLOCK
-     | epsilon
+ELSE = epsilon
 
 WHILE = cmdWhile paramBeg EXPR paramEnd BLOCK
 REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR commaSep EXPR paramEnd BLOCK
-       | cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR paramEnd BLOCK
+REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR paramEnd BLOCK
 
 RETURN = cmdReturn EXPR
 
 EXPR = EXPROR
 EXPROR = EXPROR opOr EXPRAND
-       | EXPRAND
+EXPROR = EXPRAND
 
 EXPRAND = EXPRAND opAnd EXPREQUALS
-        | EXPREQUALS
+EXPRAND = EXPREQUALS
 
 EXPREQUALS = EXPRREL opEquals EXPRREL
-           | EXPRREL
+EXPREQUALS = EXPRREL
 
 EXPRREL = EXPRADD opRel EXPRADD
-        | EXPRADD
+EXPRREL = EXPRADD
 
 EXPRADD = EXPRADD opAditiv EXPRAMULT
-        | EXPRAMULT
+EXPRADD = EXPRAMULT
 
 EXPRAMULT = EXPRAMULT opMult EXPRUN
-          | EXPRUN
+EXPRAMULT = EXPRUN
 
 EXPRUN = opUnaryNeg EXPRUN
-       | EXPRPARAM
+EXPRUN = EXPRPARAM
 
 EXPRPARAM = paramBeg EXPR paramEnd
-          | EXPRVALUES
+EXPRPARAM = EXPRVALUES
 
 EXPRVALUES = id
-           | id CONCAT
-           | constNumInt
-           | constNumFloat
-           | constBool
-           | constChar
-           | constChar CONCAT
-           | constString
-           | constString CONCAT
-           | id arrayBeg EXPR arrayEnd ARRCONCAT
-           | id FUNCCALL
-           | id CONCAT
+EXPRVALUES = id CONCAT
+EXPRVALUES = constNumInt
+EXPRVALUES = constNumFloat
+EXPRVALUES = constBool
+EXPRVALUES = constChar
+EXPRVALUES = constChar CONCAT
+EXPRVALUES = constString
+EXPRVALUES = constString CONCAT
+EXPRVALUES = id arrayBeg EXPR arrayEnd ARRCONCAT
+EXPRVALUES = id FUNCCALL
+EXPRVALUES = id CONCAT
 
 ARRCONCAT = CONCAT
-          | epsilon
+ARRCONCAT = epsilon
 
 CONCAT = opConcat constString
-       | opConcat constChar
-       | opConcat id
+CONCAT = opConcat constChar
+CONCAT = opConcat id
