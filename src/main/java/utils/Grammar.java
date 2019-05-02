@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class Grammar {
 
     private ArrayList<Production> productions = new ArrayList<>();
