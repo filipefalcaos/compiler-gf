@@ -1,144 +1,150 @@
 PROGRAM = FUNCTIONS MAINFUNC
-PROGRAM = DECL endLine GLDECL FUNCTIONS MAINFUNC
+        | DECL endLine GLDECL FUNCTIONS MAINFUNC
+
 MAINFUNC = main paramBeg paramEnd TYPE BLOCK
 
 GLDECL = DECL endLine GLDECL
-GLDECL = epsilon
+       | epsilon
 
 FUNCTIONS = funDecl id PARAMS RETURNTYPE BLOCK FUNCTIONS
-FUNCTIONS = epsilon
+          | epsilon
 
 PARAMS = paramBeg PARAMSfat
 PARAMSfat = paramEnd
-PARAMSfat = LISTPARAMS paramEnd
+          | LISTPARAMS paramEnd
+
 LISTPARAMS = TYPE NAME LISTPARAMSr
 LISTPARAMSr = commaSep LISTPARAMS
-LISTPARAMSr = epsilon
+            | epsilon
 
 TYPE = typeInt
-TYPE = typeFloat
-TYPE = typeBool
-TYPE = typeChar
-TYPE = typeString
-TYPE = typeEmpty
-TYPE = typeNull
+     | typeFloat
+     | typeBool
+     | typeChar
+     | typeString
+     | typeEmpty
+     | typeNull
 
 RETURNTYPE = TYPE RETURNTYPEfat
 RETURNTYPEfat = arrayBeg arrayEnd
-RETURNTYPEfat = epsilon
+              | epsilon
 
 NAME = id NAMEfat
 NAMEfat = arrayBeg NAMEfat2
-NAMEfat = epsilon
+        | epsilon
+
 NAMEfat2 = EXPR arrayEnd
-NAMEfat2 = arrayEnd
+         | arrayEnd
 
 BLOCK = blockBeg CMDS blockEnd
 
 CMDS = CMD CMDS
-CMDS = epsilon
+     | epsilon
 
 CMD = DECL endLine
-CMD = id CMDfat
-CMD = PRINT endLine
-CMD = READ endLine
-CMD = IFELSE
-CMD = WHILE
-CMD = REPEAT
-CMD = RETURN endLine
+    | id CMDfat
+    | PRINT endLine
+    | READ endLine
+    | IFELSE
+    | WHILE
+    | REPEAT
+    | RETURN endLine
+
 CMDfat = arrayBeg EXPR arrayEnd ASSG endLine
-CMDfat = ASSG endLine
-CMDfat = FUNCCALL endLine
-CMDfat = epsilon
+       | ASSG endLine
+       | FUNCCALL endLine
+       | epsilon
 
 DECL = varDecl TYPE NAME DECLfat
 DECLfat = ASSG
-DECLfat = epsilon
+        | epsilon
 
 ASSG = opAssign ASSGfat
 ASSGfat = TYPE castSep VALUE
-ASSGfat = VALUE
+        | VALUE
 
 VALUE = ARRAY
-VALUE = EXPR
+      | EXPR
 
 ARRAY = arrayValBeg ELEMENTS arrayValEnd
 ELEMENTS = EXPR ELEMENTSr
 ELEMENTSr = commaSep ELEMENTS
-ELEMENTSr = epsilon
+          | epsilon
 
 FUNCCALL = paramBeg LISTPARAMSCALL paramEnd
 LISTPARAMSCALL = PARAMITEM LISTPARAMSCALLr
 LISTPARAMSCALLr = commaSep PARAMITEM LISTPARAMSCALLr
-LISTPARAMSCALLr = epsilon
+                | epsilon
+
 PARAMITEM = EXPR
-PARAMITEM = epsilon
+          | epsilon
 
 PRINT = cmdPrint paramBeg EXPR paramEnd
 READ = cmdRead paramBeg NAME paramEnd
 
 IFELSE = IF ELIF ELSE
 IF = cmdIf paramBeg EXPROR paramEnd BLOCK
+
 ELIF = cmdElif paramBeg EXPROR paramEnd BLOCK ELIF
-ELIF = epsilon
+     | epsilon
+
 ELSE = cmdElse BLOCK
-ELSE = epsilon
+     | epsilon
 
 WHILE = cmdWhile paramBeg EXPROR paramEnd BLOCK
 REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR REPEATfat paramEnd BLOCK
 REPEATfat = commaSep EXPROR
-REPEATfat = epsilon
+          | epsilon
 
 RETURN = cmdReturn EXPR
 
 EXPR = EXPROR
 EXPROR = EXPRAND EXPRORr
 EXPRORr = opOr EXPRAND EXPRORr
-EXPRORr = epsilon
+        | epsilon
 
 EXPRAND = EXPREQUALS EXPRANDr
 EXPRANDr = opAnd EXPREQUALS EXPRANDr
-EXPRANDr = epsilon
+         | epsilon
 
 EXPREQUALS = EXPRREL EXPREQUALSr
 EXPREQUALSr = opEquals EXPRREL EXPREQUALSr
-EXPREQUALSr = epsilon
+            | epsilon
 
 EXPRREL = EXPRADD EXPRRELr
 EXPRRELr = opRel EXPRADD EXPRRELr
-EXPRRELr = epsilon
+         | epsilon
 
 EXPRADD = EXPRAMULT EXPRADDr
 EXPRADDr = opAditiv EXPRAMULT EXPRADDr
-EXPRADDr = epsilon
+         | epsilon
 
 EXPRAMULT = EXPRUN EXPRAMULTr
 EXPRAMULTr = opMult EXPRUN EXPRAMULTr
-EXPRAMULTr = epsilon
+           | epsilon
 
 EXPRUN = opUnaryNeg EXPRUN
-EXPRUN = EXPRPARAM
+       | EXPRPARAM
 
 EXPRPARAM = paramBeg EXPR paramEnd
-EXPRPARAM = EXPRVALUES
+          | EXPRVALUES
 
 EXPRVALUES = constNumInt
-EXPRVALUES = constNumFloat
-EXPRVALUES = constBool
-EXPRVALUES = constChar EXPRVALUESfat
-EXPRVALUES = constString EXPRVALUESfat
-EXPRVALUES = id EXPRVALUESfat2
-EXPRVALUESfat = CONCAT
-EXPRVALUESfat = epsilon
-EXPRVALUESfat2 = arrayBeg EXPR arrayEnd ARRCONCAT
-EXPRVALUESfat2 = FUNCCALL
-EXPRVALUESfat2 = CONCAT
-EXPRVALUESfat2 = epsilon
+           | constNumFloat
+           | constBool
+           | constChar ARRCONCAT
+           | constString ARRCONCAT
+           | id EXPRVALUESfat
+
+EXPRVALUESfat = arrayBeg EXPR arrayEnd ARRCONCAT
+              | FUNCCALL
+              | CONCAT
+              | epsilon
 
 ARRCONCAT = CONCAT
-ARRCONCAT = epsilon
+          | epsilon
 
 CONCAT = opConcat CONCATfat
 CONCATfat = constString
-CONCATfat = constChar
-CONCATfat = id
+          | constChar
+          | id
