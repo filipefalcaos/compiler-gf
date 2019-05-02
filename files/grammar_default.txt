@@ -1,5 +1,6 @@
 PROGRAM = FUNCTIONS MAINFUNC
 PROGRAM = DECL endLine GLDECL FUNCTIONS MAINFUNC
+MAINFUNC = main paramBeg paramEnd TYPE BLOCK
 
 GLDECL = DECL endLine GLDECL
 GLDECL = epsilon
@@ -7,10 +8,7 @@ GLDECL = epsilon
 FUNCTIONS = funDecl id PARAMS RETURNTYPE BLOCK FUNCTIONS
 FUNCTIONS = epsilon
 
-MAINFUNC = main paramBeg paramEnd TYPE BLOCK
-
 PARAMS = paramBeg LISTPARAMS paramEnd
-
 LISTPARAMS = TYPE NAME
 LISTPARAMS = LISTPARAMS commaSep TYPE NAME
 LISTPARAMS = epsilon
@@ -50,53 +48,38 @@ DECL = varDecl TYPE NAME
 DECL = varDecl TYPE NAME ASSG
 
 ASSG = opAssign VALUE
+ASSG = opAssign TYPE castSep VALUE
 
 VALUE = ARRAY
 VALUE = EXPR
 
 ARRAY = arrayValBeg ELEMENTS arrayValEnd
-
 ELEMENTS = EXPR
 ELEMENTS = ELEMENTS commaSep EXPR
 
-CONSTANT = constNumInt
-CONSTANT = constNumFloat
-CONSTANT = constBool
-CONSTANT = constChar
-CONSTANT = constString
-
 FUNCCALL = paramBeg LISTPARAMSCALL paramEnd
-
 LISTPARAMSCALL = PARAMITEM
 LISTPARAMSCALL = LISTPARAMSCALL commaSep PARAMITEM
-
-PARAMITEM = CONSTANT
-PARAMITEM = NAME
-PARAMITEM = NAME FUNCCALL
+PARAMITEM = EXPR
 PARAMITEM = epsilon
 
 PRINT = cmdPrint paramBeg EXPR paramEnd
 READ = cmdRead paramBeg NAME paramEnd
 
 IFELSE = IF ELIF ELSE
-
 IF = cmdIf paramBeg EXPR paramEnd BLOCK
-
 ELIF = cmdElif paramBeg EXPR paramEnd BLOCK ELIF
 ELIF = epsilon
-
 ELSE = cmdElse BLOCK
 ELSE = epsilon
 
 WHILE = cmdWhile paramBeg EXPR paramEnd BLOCK
-
 REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR commaSep EXPR paramEnd BLOCK
 REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR paramEnd BLOCK
 
 RETURN = cmdReturn EXPR
 
 EXPR = EXPROR
-
 EXPROR = EXPROR opOr EXPRAND
 EXPROR = EXPRAND
 
@@ -122,10 +105,12 @@ EXPRPARAM = paramBeg EXPR paramEnd
 EXPRPARAM = EXPRVALUES
 
 EXPRVALUES = id
+EXPRVALUES = id CONCAT
 EXPRVALUES = constNumInt
 EXPRVALUES = constNumFloat
 EXPRVALUES = constBool
 EXPRVALUES = constChar
+EXPRVALUES = constChar CONCAT
 EXPRVALUES = constString
 EXPRVALUES = constString CONCAT
 EXPRVALUES = id arrayBeg EXPR arrayEnd ARRCONCAT
@@ -136,4 +121,5 @@ ARRCONCAT = CONCAT
 ARRCONCAT = epsilon
 
 CONCAT = opConcat constString
+CONCAT = opConcat constChar
 CONCAT = opConcat id

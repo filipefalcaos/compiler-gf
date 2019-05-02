@@ -37,6 +37,7 @@ public enum Tokens {
     arrayValEnd,
     endLine,
     commaSep,
+    castSep,
 
     // Constants
     constNumInt,

@@ -59,6 +59,7 @@ class LexicalTable {
 
         // Separator
         map.put(",", Tokens.commaSep);
+        map.put(":", Tokens.castSep);
 
         // Delimiters
         map.put("(", Tokens.paramBeg);
@@ -72,6 +73,7 @@ class LexicalTable {
 
         // Symbols
         symbols.add(';');
+        symbols.add(':');
         symbols.add(',');
         symbols.add('+');
         symbols.add('-');

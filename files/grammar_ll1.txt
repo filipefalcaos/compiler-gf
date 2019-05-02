@@ -1,5 +1,6 @@
 PROGRAM = FUNCTIONS MAINFUNC
 PROGRAM = DECL endLine GLDECL FUNCTIONS MAINFUNC
+MAINFUNC = main paramBeg paramEnd TYPE BLOCK
 
 GLDECL = DECL endLine GLDECL
 GLDECL = epsilon
@@ -7,12 +8,9 @@ GLDECL = epsilon
 FUNCTIONS = funDecl id PARAMS RETURNTYPE BLOCK FUNCTIONS
 FUNCTIONS = epsilon
 
-MAINFUNC = main paramBeg paramEnd TYPE BLOCK
-
 PARAMS = paramBeg PARAMSfat
 PARAMSfat = paramEnd
 PARAMSfat = LISTPARAMS paramEnd
-
 LISTPARAMS = TYPE NAME LISTPARAMSr
 LISTPARAMSr = commaSep LISTPARAMS
 LISTPARAMSr = epsilon
@@ -57,50 +55,36 @@ DECL = varDecl TYPE NAME DECLfat
 DECLfat = ASSG
 DECLfat = epsilon
 
-ASSG = opAssign VALUE
+ASSG = opAssign ASSGfat
+ASSGfat = TYPE castSep VALUE
+ASSGfat = VALUE
 
 VALUE = ARRAY
 VALUE = EXPR
 
-ARRAY = arrayBeg ELEMENTS arrayEnd
-
+ARRAY = arrayValBeg ELEMENTS arrayValEnd
 ELEMENTS = EXPR ELEMENTSr
 ELEMENTSr = commaSep ELEMENTS
 ELEMENTSr = epsilon
 
-CONSTANT = constNumInt
-CONSTANT = constNumFloat
-CONSTANT = constBool
-CONSTANT = constChar
-CONSTANT = constString
-
 FUNCCALL = paramBeg LISTPARAMSCALL paramEnd
-
 LISTPARAMSCALL = PARAMITEM LISTPARAMSCALLr
 LISTPARAMSCALLr = commaSep PARAMITEM LISTPARAMSCALLr
 LISTPARAMSCALLr = epsilon
-
-PARAMITEM = CONSTANT
-PARAMITEM = NAME PARAMITEMfat
+PARAMITEM = EXPR
 PARAMITEM = epsilon
-PARAMITEMfat = FUNCCALL
-PARAMITEMfat = epsilon
 
 PRINT = cmdPrint paramBeg EXPR paramEnd
 READ = cmdRead paramBeg NAME paramEnd
 
 IFELSE = IF ELIF ELSE
-
 IF = cmdIf paramBeg EXPROR paramEnd BLOCK
-
 ELIF = cmdElif paramBeg EXPROR paramEnd BLOCK ELIF
 ELIF = epsilon
-
 ELSE = cmdElse BLOCK
 ELSE = epsilon
 
 WHILE = cmdWhile paramBeg EXPROR paramEnd BLOCK
-
 REPEAT = cmdRepeat id cmdIn paramBeg EXPR commaSep EXPR REPEATfat paramEnd BLOCK
 REPEATfat = commaSep EXPROR
 REPEATfat = epsilon
@@ -141,7 +125,7 @@ EXPRPARAM = EXPRVALUES
 EXPRVALUES = constNumInt
 EXPRVALUES = constNumFloat
 EXPRVALUES = constBool
-EXPRVALUES = constChar
+EXPRVALUES = constChar EXPRVALUESfat
 EXPRVALUES = constString EXPRVALUESfat
 EXPRVALUES = id EXPRVALUESfat2
 EXPRVALUESfat = CONCAT
@@ -156,4 +140,5 @@ ARRCONCAT = epsilon
 
 CONCAT = opConcat CONCATfat
 CONCATfat = constString
+CONCATfat = constChar
 CONCATfat = id

@@ -8,7 +8,7 @@ funDecl id paramBeg typeInt id paramEnd typeInt blockBeg varDecl typeInt id endL
 funDecl id paramBeg typeInt id arrayBeg arrayEnd commaSep typeInt id paramEnd typeInt arrayBeg arrayEnd blockBeg varDecl typeInt id endLine varDecl typeInt id endLine varDecl typeInt id endLine id opAssign id opMult constNumInt endLine cmdWhile paramBeg id opRel constNumInt paramEnd blockBeg cmdRepeat id cmdIn paramBeg id commaSep id commaSep constNumInt paramEnd blockBeg varDecl typeInt id endLine varDecl typeInt id endLine id opAssign constNumInt endLine id opAssign id arrayBeg id arrayEnd endLine cmdWhile paramBeg paramBeg id opRel id paramEnd opAnd paramBeg id arrayBeg id opAditiv id arrayEnd opRel id paramEnd paramEnd blockBeg id arrayBeg id arrayEnd opAssign id arrayBeg id opAditiv id arrayEnd endLine id opAssign id opAditiv id endLine blockEnd id arrayBeg id arrayEnd opAssign id endLine blockEnd id opAssign id opMult constNumInt endLine blockEnd cmdReturn constNumInt endLine blockEnd funDecl id paramBeg typeInt id arrayBeg arrayEnd commaSep typeInt id paramEnd typeInt blockBeg varDecl typeInt id endLine cmdRepeat id cmdIn paramBeg constNumInt commaSep id commaSep constNumInt paramEnd blockBeg cmdPrint paramBeg id arrayBeg id arrayEnd opConcat constString paramEnd endLine blockEnd cmdPrint paramBeg constString paramEnd endLine cmdReturn constNumInt endLine blockEnd funDecl id paramBeg typeInt id paramEnd typeInt arrayBeg arrayEnd blockBeg varDecl typeInt id arrayBeg id arrayEnd endLine varDecl typeInt id endLine cmdRepeat id cmdIn paramBeg constNumInt commaSep id commaSep constNumInt paramEnd blockBeg cmdRead paramBeg id arrayBeg id arrayEnd paramEnd endLine blockEnd cmdReturn id endLine blockEnd main paramBeg paramEnd typeInt blockBeg varDecl typeInt id arrayBeg constNumInt arrayEnd endLine id paramBeg id paramBeg constNumInt paramEnd paramEnd endLine id paramBeg id paramBeg id commaSep constNumInt paramEnd paramEnd endLine cmdReturn constNumInt endLine blockEnd
 
 # test4 - Assigments
-main paramBeg paramEnd typeInt blockBeg id opAssign id paramBeg paramEnd endLine varDecl typeInt id opAssign id endLine blockEnd
+main paramBeg paramEnd typeInt blockBeg id opAssign id paramBeg id opAditiv id paramEnd endLine varDecl typeInt id opAssign id endLine blockEnd
 
 # test5 - Global variables
 varDecl typeInt id endLine varDecl typeInt id endLine varDecl typeInt id endLine main paramBeg paramEnd typeInt blockBeg id opAssign id paramBeg paramEnd endLine blockEnd
@@ -18,3 +18,6 @@ main paramBeg paramEnd typeInt blockBeg cmdPrint paramBeg constString paramEnd e
 
 # test7 - Return expressions
 funDecl id paramBeg typeInt id paramEnd typeInt blockBeg cmdReturn paramBeg id opAditiv id paramEnd opMult constNumInt endLine blockEnd main paramBeg paramEnd typeInt blockBeg id opAssign id paramBeg paramEnd endLine varDecl typeInt id opAssign id endLine blockEnd
+
+# test8 - Cast
+main paramBeg paramEnd typeInt blockBeg varDecl typeInt id opAssign typeInt castSep constNumFloat opMult constNumInt endLine varDecl typeInt id opAssign id endLine cmdReturn constNumInt endLine blockEnd
